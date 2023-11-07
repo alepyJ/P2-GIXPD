@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: model-server-deployment
+  name: model-server-deployment2
 spec:
   replicas: 3
   selector:
@@ -13,8 +13,8 @@ spec:
         app: model-server
     spec:
       containers:
-      - name: model-server-container
-        image: model-server:default
+      - name: model-server-container2
+        image: model-server:custom
         env:
         - name: MODEL_PATH
           valueFrom:
