@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: model-train-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: model-train-container
+        image: model-train:default
+        env:
+        - name: MODEL_PATH
+          valueFrom:
+            configMapKeyRef:
+              name: model-path-config
+              key: model-path
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: model-volume
+          mountPath: /mount
+      volumes:
+      - name: model-volume
+        hostPath:
+          path: /tmp
+          type: Directory
+      restartPolicy: Never
